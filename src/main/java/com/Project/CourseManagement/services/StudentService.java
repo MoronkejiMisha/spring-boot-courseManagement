@@ -5,6 +5,7 @@ import com.Project.CourseManagement.models.Student;
 import com.Project.CourseManagement.repositories.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final ModelMapper mapper = new ModelMapper();
 
-    public StudentDto saveUser(StudentDto studentDto){
+    public StudentDto saveStudent(StudentDto studentDto){
         var savedUser =studentRepository.save(mapper.map(studentDto, Student.class));
         return mapper.map(savedUser, StudentDto.class);
     }
@@ -41,8 +42,8 @@ public class StudentService {
 
     }
 
-    public void deleteCourse(StudentDto courseUserDto){
-        studentRepository.delete(mapper.map(courseUserDto, Student.class));
+    public void deleteCourseById(Integer id){
+        studentRepository.deleteById(id);
     }
 
 }
