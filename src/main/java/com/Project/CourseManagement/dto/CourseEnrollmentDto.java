@@ -4,17 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentDto{
-    private String firstName;
-
-    private String lastName;
-
-    private String email;
-
-    private String password;
+public class CourseEnrollmentDto {
+    private Integer student_id;
+    private String title;
 }

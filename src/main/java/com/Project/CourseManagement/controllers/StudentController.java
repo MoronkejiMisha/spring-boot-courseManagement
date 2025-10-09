@@ -12,11 +12,11 @@ import java.util.List;
 public class StudentController {
     private final StudentService studentService;
     @PostMapping("/students")
-    public void saveStudent(StudentDto studentDto){
+    public void saveStudent(@RequestBody StudentDto studentDto){
         studentService.saveStudent(studentDto);
     }
 
-    @PostMapping("/students")
+    @GetMapping("/students")
     public List<StudentDto> listAllStudents(){
         return studentService.findAllStudents();
     }

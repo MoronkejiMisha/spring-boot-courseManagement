@@ -16,9 +16,8 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final ModelMapper mapper = new ModelMapper();
 
-    public StudentDto saveStudent(StudentDto studentDto){
-        var savedUser =studentRepository.save(mapper.map(studentDto, Student.class));
-        return mapper.map(savedUser, StudentDto.class);
+    public void saveStudent(StudentDto studentDto){
+        studentRepository.save(mapper.map(studentDto, Student.class));
     }
 
     public StudentDto findStudentById(Integer id){

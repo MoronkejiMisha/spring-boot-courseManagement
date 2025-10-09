@@ -2,15 +2,14 @@ package com.Project.CourseManagement.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Student {
@@ -25,5 +24,5 @@ public class Student {
 
     @ManyToMany(mappedBy = "students")
     @JsonManagedReference
-    private List<Course> courses=new ArrayList<>();
+    private List<Course> courses_enrolled=new ArrayList<>();
 }
