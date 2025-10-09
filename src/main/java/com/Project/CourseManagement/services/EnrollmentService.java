@@ -30,5 +30,19 @@ public class EnrollmentService {
         studentRepository.save(student);
         courseRepository.save(course);
     }
+
+    public void deleteEnrollment(Integer studentId,Integer courseId){
+        Course course=courseRepository.findById(courseId).
+                orElseThrow(()->new EntityNotFoundException("Course does not exist"));
+
+        Student student=studentRepository.findById(studentId).
+                orElseThrow(()->new EntityNotFoundException("Student does not exist"));
+
+        course.getStudents().remove(student);
+        student.getCourses_enrolled().remove(course);
+
+        courseRepository.save(course);
+        studentRepository.save(student);
+    }
 }
 
