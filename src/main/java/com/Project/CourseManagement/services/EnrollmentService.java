@@ -1,6 +1,8 @@
 package com.Project.CourseManagement.services;
 
 import com.Project.CourseManagement.dto.CourseEnrollmentDto;
+import com.Project.CourseManagement.dto.StudentEnrollmentResponseDto;
+import com.Project.CourseManagement.dto.StudentResponseDto;
 import com.Project.CourseManagement.models.Course;
 import com.Project.CourseManagement.models.Student;
 import com.Project.CourseManagement.repositories.CourseRepository;
@@ -9,6 +11,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -43,6 +47,18 @@ public class EnrollmentService {
 
         courseRepository.save(course);
         studentRepository.save(student);
+    }
+
+    public List<Course> getCoursesEnrolled(Integer id){
+        Student student = studentRepository.findById(id).
+                orElseThrow(()->new EntityNotFoundException("Course does not exist"));
+        return student.getCourses_enrolled();
+    }
+
+    public List<StudentEnrollmentResponseDto> getStudentsEnrolled(Integer id) {
+        Course course = courseRepository.findById(id).
+                orElseThrow(() -> new EntityNotFoundException("Course does not exist"));
+        return course.getStudents().stream().map(student->mapper.map(student,StudentEnrollmentResponseDto.class)).toList();
     }
 }
 

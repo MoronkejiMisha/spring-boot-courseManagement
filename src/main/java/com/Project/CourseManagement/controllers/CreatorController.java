@@ -33,7 +33,7 @@ public class CreatorController {
     public CreatorResponseDto getCreatorById(@PathVariable("creator-Id") Integer id){
         return creatorService.findCreatorById(id);
     }
-    @DeleteMapping("/creators/delete/{creator-id}")
+    @DeleteMapping("/creators/{creator-id}/delete")
     public void deleteCreator(@PathVariable("creator-id") Integer id){
         creatorService.deleteCreator(id);
     }

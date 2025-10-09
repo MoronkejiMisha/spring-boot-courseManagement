@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CreatorService {
     private final CreatorRepository creatorRepository;
-    private final ModelMapper mapper = new ModelMapper();
+    private  ModelMapper mapper = new ModelMapper();
 
     public void addCreator(CreatorDto creatorDto) {
         creatorRepository.save(mapper.map(creatorDto, Creator.class));

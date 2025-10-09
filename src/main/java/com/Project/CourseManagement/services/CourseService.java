@@ -4,16 +4,20 @@ import com.Project.CourseManagement.dto.CourseDto;
 import com.Project.CourseManagement.dto.CourseResponseDto;
 import com.Project.CourseManagement.models.Course;
 import com.Project.CourseManagement.models.Creator;
+import com.Project.CourseManagement.models.Student;
 import com.Project.CourseManagement.repositories.CourseRepository;
 import com.Project.CourseManagement.repositories.CreatorRepository;
+import com.Project.CourseManagement.repositories.StudentRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -21,14 +25,15 @@ import java.util.Optional;
 public class CourseService {
     private final CreatorRepository creatorRepository;
     private final CourseRepository courseRepository;
-    private final ModelMapper mapper = new ModelMapper();
+    private final StudentRepository studentRepository;
+    private  ModelMapper mapper = new ModelMapper();
 //when mapping the names oof the variables in both classes must be the same
     public CourseResponseDto saveCourse(CourseDto courseDto){
         Course savedCourse =mapper.map(courseDto, Course.class);
         Integer id = courseDto.getCreatorId();
         Creator creators=creatorRepository.findById(id).orElseThrow(() -> new RuntimeException("Creator not found"));
         savedCourse.setCreators(creators);
-        savedCourse.setId(null);//this lets hibernate know that it shuld create a new course and not to update an existing course
+        savedCourse.setId(null);//this lets hibernate know that it should create a new course and not to update an existing course
         courseRepository.save(savedCourse);
         CourseResponseDto courseResponseDto = mapper.map(savedCourse,CourseResponseDto.class);
         System.out.println(courseResponseDto);
@@ -57,23 +62,45 @@ public class CourseService {
 
     @Transactional
     @Modifying
-    public void deleteByTitle(String title){
-        courseRepository.deleteByTitleIgnoreCaseContaining(title);
-    }
+    public void deleteByTitle(Integer creatorId,String title){
+            Creator creator=creatorRepository.findById(creatorId).
+                    orElseThrow(()->new EntityNotFoundException("Creator with this ID does not exist"));
+            Course course=courseRepository.findByTitleIgnoreCaseContaining(title);
 
-    public void deleteById(Integer id){
-        courseRepository.deleteById(id);
+            if (creator.getCourses().contains(course)){
+                courseRepository.deleteByTitleIgnoreCaseContaining(title);
+            }
+            else{
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            }
+
     }
 
     @Transactional
     @Modifying
-    public void deleteAllCoursesByCreatorFirstName(String firstName){
-        courseRepository.deleteAllByCreators_FirstNameIgnoreCaseContaining(firstName);
+    public void deleteById(Integer creatorId,Integer courseId){
+        Creator creator=creatorRepository.findById(creatorId).
+                orElseThrow(()->new EntityNotFoundException("Creator with this ID does not exist"));
+        Course course=courseRepository.findById(courseId).
+                orElseThrow(()->new EntityNotFoundException("Course with this ID does not exist"));
+        if (creator.getCourses().contains(course)) {
+            courseRepository.deleteById(courseId);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+
     }
 
-    @Transactional
-    @Modifying
-    public void deleteAllCoursesByCreatorLastName(String lastName){
-        courseRepository.deleteAllByCreators_LastNameIgnoreCaseContaining(lastName);
-    }
+//    @Transactional
+//    @Modifying
+//    public void deleteAllCoursesByCreatorFirstName(String firstName){
+//        courseRepository.deleteAllByCreators_FirstNameIgnoreCaseContaining(firstName);
+//    }
+//
+//    @Transactional
+//    @Modifying
+//    public void deleteAllCoursesByCreatorLastName(String lastName){
+//        courseRepository.deleteAllByCreators_LastNameIgnoreCaseContaining(lastName);
+//    }
 }

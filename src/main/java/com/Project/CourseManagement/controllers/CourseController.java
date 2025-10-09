@@ -40,25 +40,25 @@ public class CourseController{
         return courseService.saveCourse(courseDto);
     }
 
-    @DeleteMapping("/courses/title/{course-title}")
-    public void deleteCourseByTitle(@PathVariable("course-title") String title){
-        courseService.deleteByTitle(title);
+    @DeleteMapping("{creator-id}/courses/{course-title}")
+    public void deleteCourseByTitle(@PathVariable("creator-id") Integer creatorId,@PathVariable("course-title") String title){
+        courseService.deleteByTitle(creatorId,title);
     }
 
-    @DeleteMapping("/courses/{course-id}")
-    public void deleteCourseById(@PathVariable("course-id") Integer id){
-        this.courseService.deleteById(id);
+    @DeleteMapping("/courses/{creator-id}/{course-id}/delete")
+    public void deleteCourseById(@PathVariable("creator-id") Integer creatorId,@PathVariable("course-id") Integer courseId){
+        courseService.deleteById(creatorId,courseId);
     }
 
-    @DeleteMapping("/courses/firstname/{creator-firstName}")
-    public void deleteCoursesByCreatorFirstName(@PathVariable("creator-firstName") String firstName){
-        this.courseService.deleteAllCoursesByCreatorFirstName(firstName);
-    }
-
-    @DeleteMapping("/courses/lastname/{creator-lastName}")
-    public void deleteCoursesByCreatorLastName(@PathVariable("creator-lastName") String lastName){
-        this.courseService.deleteAllCoursesByCreatorLastName(lastName);
-    }
+//    @DeleteMapping("/courses/firstname/{creator-firstName}")
+//    public void deleteCoursesByCreatorFirstName(@PathVariable("creator-firstName") String firstName){
+//        courseService.deleteAllCoursesByCreatorFirstName(firstName);
+//    }
+//
+//    @DeleteMapping("/courses/lastname/{creator-lastName}")
+//    public void deleteCoursesByCreatorLastName(@PathVariable("creator-lastName") String lastName){
+//        courseService.deleteAllCoursesByCreatorLastName(lastName);
+//    }
 
 
 }
