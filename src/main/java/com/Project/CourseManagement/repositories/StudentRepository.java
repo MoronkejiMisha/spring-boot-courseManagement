@@ -1,5 +1,6 @@
 package com.Project.CourseManagement.repositories;
 
+import com.Project.CourseManagement.models.Course;
 import com.Project.CourseManagement.models.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
