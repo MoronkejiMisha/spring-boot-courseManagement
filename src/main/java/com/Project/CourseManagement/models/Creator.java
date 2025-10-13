@@ -1,5 +1,4 @@
 package com.Project.CourseManagement.models;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,6 +10,7 @@ import java.util.List;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Creator {
 
     @Id

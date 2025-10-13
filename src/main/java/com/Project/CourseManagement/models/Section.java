@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Section {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

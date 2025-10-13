@@ -13,6 +13,7 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,5 +27,5 @@ public class Student {
 
     @ManyToMany(mappedBy = "students")
     @JsonManagedReference
-    private List<Course> courses_enrolled=new ArrayList<>();
+    private List<Course> coursesEnrolled=new ArrayList<>();
 }

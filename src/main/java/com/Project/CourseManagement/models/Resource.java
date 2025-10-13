@@ -10,6 +10,7 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

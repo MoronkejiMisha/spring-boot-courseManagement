@@ -8,4 +8,6 @@ public interface StudentRepository extends JpaRepository<Student,Integer> {
     public Student findByFirstNameContaining(String firstName);
     public Student findByLastNameContaining(String lastName);
     public Student findByFirstNameAndLastNameContaining(String firstName, String LastName);
+    Student findByCoursesEnrolled_IdAndId(Integer courseId, Integer studentId);
+
 }

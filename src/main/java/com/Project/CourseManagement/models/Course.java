@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Generated;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +24,12 @@ public class Course {
     private String title;
     private String description;
     private String content;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_id")
     @JsonBackReference
     private Creator creators;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="enrollment",
             joinColumns = @JoinColumn(name="course_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
@@ -38,5 +39,9 @@ public class Course {
     @OneToMany(mappedBy = "courses",cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Section> sections=new ArrayList<>();
+
+    @Lob
+    private byte[] file;
+
 
 }

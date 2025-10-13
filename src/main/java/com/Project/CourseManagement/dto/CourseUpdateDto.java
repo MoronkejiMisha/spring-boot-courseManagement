@@ -1,6 +1,5 @@
 package com.Project.CourseManagement.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,12 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseDto {
-
-    @NotBlank(message = "Title must not be empty")
-    private String title;
-
+public class CourseUpdateDto {
+    private Integer course_id;
+    private String content;
     private String description;
-
-    private Integer creatorId;
+    private String title;
 }

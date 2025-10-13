@@ -2,9 +2,7 @@ package com.Project.CourseManagement.controllers;
 
 import com.Project.CourseManagement.dto.CourseEnrollmentDto;
 import com.Project.CourseManagement.dto.StudentEnrollmentResponseDto;
-import com.Project.CourseManagement.dto.StudentResponseDto;
 import com.Project.CourseManagement.models.Course;
-import com.Project.CourseManagement.models.Student;
 import com.Project.CourseManagement.services.EnrollmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

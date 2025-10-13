@@ -1,7 +1,7 @@
 package com.Project.CourseManagement.controllers;
 
 import com.Project.CourseManagement.dto.StudentDto;
-import com.Project.CourseManagement.services.StudentService;
+import com.Project.CourseManagement.services.Implementations.StudentServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 public class StudentController {
-    private final StudentService studentService;
+    private final StudentServiceImpl studentService;
     @PostMapping("/students")
     public void saveStudent(@RequestBody StudentDto studentDto){
         studentService.saveStudent(studentDto);
