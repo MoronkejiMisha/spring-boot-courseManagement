@@ -18,6 +18,8 @@ public interface CourseRepository extends JpaRepository<Course,Integer> {
 
     void deleteByCreators_LastNameIgnoreCaseContaining(String lastName);
 
+    Course findByCreators_IdAndId(Integer creatorId, Integer courseId);
+
     List<Course> findByCreators_FirstNameIgnoreCaseContaining(String firstName);
 
     List<Course> findByCreators_LastNameIgnoreCaseContaining(String lastName);

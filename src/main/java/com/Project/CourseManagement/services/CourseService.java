@@ -81,8 +81,7 @@ public class CourseService {
     public void deleteById(Integer creatorId,Integer courseId){
         Creator creator=creatorRepository.findById(creatorId).
                 orElseThrow(()->new EntityNotFoundException("Creator with this ID does not exist"));
-        Course course=courseRepository.findById(courseId).
-                orElseThrow(()->new EntityNotFoundException("Course with this ID does not exist"));
+        Course course=courseRepository.findByCreators_IdAndId(creatorId,courseId);
         if (creator.getCourses().contains(course)) {
             courseRepository.deleteById(courseId);
         }

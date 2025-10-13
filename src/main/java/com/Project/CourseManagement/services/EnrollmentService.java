@@ -10,7 +10,9 @@ import com.Project.CourseManagement.repositories.StudentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -42,11 +44,15 @@ public class EnrollmentService {
         Student student=studentRepository.findById(studentId).
                 orElseThrow(()->new EntityNotFoundException("Student does not exist"));
 
-        course.getStudents().remove(student);
-        student.getCourses_enrolled().remove(course);
-
-        courseRepository.save(course);
-        studentRepository.save(student);
+        if (student.getCourses_enrolled().contains(course)){
+            course.getStudents().remove(student);
+            student.getCourses_enrolled().remove(course);
+            courseRepository.save(course);
+            studentRepository.save(student);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     public List<Course> getCoursesEnrolled(Integer id){
