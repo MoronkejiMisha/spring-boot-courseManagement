@@ -40,8 +40,4 @@ public class Course {
     @JsonManagedReference
     private List<Section> sections=new ArrayList<>();
 
-    @Lob
-    private byte[] file;
-
-
 }

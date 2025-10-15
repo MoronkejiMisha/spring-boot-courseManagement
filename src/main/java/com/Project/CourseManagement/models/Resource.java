@@ -18,9 +18,11 @@ public class Resource {
 
     private String name;
 
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="lecture_id")
     @JsonBackReference
     private Lecture lectures;

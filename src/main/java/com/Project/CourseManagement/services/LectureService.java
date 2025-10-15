@@ -1,9 +1,12 @@
 package com.Project.CourseManagement.services;
 
-import com.Project.CourseManagement.models.Lecture;
-import com.Project.CourseManagement.repositories.LectureRepository;
+import com.Project.CourseManagement.dto.LectureDto;
+
+import java.util.List;
 
 public interface LectureService {
-    void saveLecture(Lecture lecture);
-    void deleteLectureByName(String name);
+    List<LectureDto> getAllLectures();
+    LectureDto getLectureById(Integer lectureId);
+    void saveLecture(Integer sectionId,LectureDto lectureDto);
+    void deleteLectureById(Integer courseId,Integer sectionId,Integer lectureId);
 }
